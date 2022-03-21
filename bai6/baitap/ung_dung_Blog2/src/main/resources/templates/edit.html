@@ -6,13 +6,15 @@
     <link rel="stylesheet" href="/assert/bootstrap413/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assert/datatables/css/dataTables.bootstrap4.min.css">
 </head>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
 <body>
-
     <div class="container-fluid">
-        <div class="row bg-white p-lg-5">
+<!--        <div class="row bg-white p-lg-12">-->
             <div class="col-log-12">
                 <h3 class="text-center">Sửa thông tin blog</h3>
-                <form method="post" th:object="blog" th:action="@{/edit}">
+                <form method="post" th:object="${blog}" th:action="@{/edit}">
                     <div>
                         <lable>Mã blog:</lable>
                         <input type="text" class="form-control" name="id" th:field="*{id}" readonly>
@@ -37,7 +39,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+<!--        </div>-->
     </div>
 
 </body>

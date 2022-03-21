@@ -3,16 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Create customer</title>
+    <link rel="stylesheet" href="/assert/bootstrap413/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assert/datatables/css/dataTables.bootstrap4 .min.css">
 </head>
 <body>
 <h1>Create customer</h1>
 <p>
-    <a href="/customers">Customer list</a>
+    <a href="/">Blog list</a>
 </p>
 <th:block th:if="${message}">
     <p th:text="${message}"></p>
 </th:block>
 <form th:action="@{/create-customer}" th:object="${customer}" method="post">
+    <div class="calendar-grid">
+        <button type="button" class="btn btn-success">
+            <a href="/" style="color: black">Blog list</a>
+        </button>
+        <div class="row bg-white p-lg-5">
+            <div class="col-lg-12">
+                <h3 class="text-center">Thêm blog: </h3>
+            </div>
+            <form method="post">
+                <div class="form-group">
+                    <div>
+                        <lable>Tên blog</lable>
+                        <input type="text" class="form-control" th:field="" required>
+                    </div>
+                </div>
+            </form>
+        </div>
     <table>
         <tr>
             <td>First name:</td>
@@ -27,6 +46,7 @@
             <td><input type="submit" value="Create customer"></td>
         </tr>
     </table>
+    </div>
 </form>
 </body>
 </html>

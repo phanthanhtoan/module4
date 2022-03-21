@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Blog</title>
+    <link rel="stylesheet" href="/assert/bootstrap413/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assert/datatables/css/dataTables.bootstrap4.min.css">
+</head>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<body>
+    <div class="container-fluid">
+<!--        <div class="row bg-white p-lg-12">-->
+            <div class="col-log-12">
+                <h3 class="text-center">Sửa thông tin blog</h3>
+                <form method="post" th:object="${user}" th:action="@{/edit}">
+                    <div>
+                        <lable>Id User:</lable>
+                        <input type="text" class="form-control" name="id" th:field="*{id}" readonly>
+                    </div>
+                    <div>
+                        <lable>First Name:</lable>
+                        <input type="text" class="form-control" name="name" th:field="*{firstName}">
+                    </div>
+                    <div>
+                        <lable>Last Name</lable>
+                        <input type="text" class="form-control" name="content" th:field="*{lastName}">
+                    </div>
+                    <div>
+                        <lable>Phone</lable>
+                        <input type="text" class="form-control" name="author" th:field="*{phoneNumber}">
+                    </div>
+                    <div>
+                        <lable>Age</lable>
+                        <input type="text" class="form-control" name="author" th:field="*{age}">
+                    </div>
+                    <div>
+                        <lable>Email</lable>
+                        <input type="text" class="form-control" name="author" th:field="*{email}">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button type="button" class="btn btn-success">
+                            <a href="/" class="text-white">Quay Lại</a>
+                        </button>
+                    </div>
+                </form>
+            </div>
+<!--        </div>-->
+    </div>
+
+</body>
+</html>

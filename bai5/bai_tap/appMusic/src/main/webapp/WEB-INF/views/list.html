@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Music List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+<h1 class="text-center">Music</h1>
+<a class="btn btn-outline-primary" href="/create-music">Create new music</a>
+<th:block  th:if="${message}">
+    <p class="alert alert-success" th:text="${message}"></p>
+</th:block>
+<div th:if="musics !=null">
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>Singer</th>
+            <th>Name Song</th>
+            <th>Link</th>
+            <th>Category</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <th:block th:each="music : ${musics}">
+            <tr>
+                <td th:text="${music.singer}"></td>
+                <td th:text="${music.nameSong}"></td>
+                <td th:text="${music.link}"></td>
+                <td th:text="${music.category}"></td>
+                <td><a class="btn btn-outline-primary" th:href="@{/edit-music/__${music.id}__ }">Edit</a></td>
+                <td><a class="btn btn-outline-primary" th:href="@{/delete-music/__${music.id}__ }">Delete</a></td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,9 +1,6 @@
 package com.ung_dung_blog2.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Blog {
@@ -13,6 +10,17 @@ public class Blog {
     private String name;
     private String content;
     private String author;
+
+    @ManyToOne(targetEntity = Category.class)
+    private Category category;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public Blog() {
     }
