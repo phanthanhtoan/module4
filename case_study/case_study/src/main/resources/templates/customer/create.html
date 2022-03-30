@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Customer</title>
+    <link rel="stylesheet" href="/assert/bootstrap413/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assert/datatables/css/dataTables.bootstrap4 .min.css">
+</head>
+<body>
+<h1>Create Customer</h1>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<form th:action="@{/create-customer}" th:object="${customer}" method="post">
+    <div class="container-fluid">
+        <button type="button" class="btn btn-success">
+            <a href="/" style="color: black">Customer list</a>
+        </button>
+        <div class="row bg-white p-lg-5">
+            <div class="col-lg-12">
+                <h3 class="text-center">Thêm Khách hàng: </h3>
+                <form method="post">
+                    <div class="form-group">
+                        <div>
+                            <lable>Tên khách hàng: </lable>
+                            <input type="text" class="form-control" th:field="*{customerName}" required>
+                        </div>
+                        <div>
+                            <lable>Loại khách hàng: </lable>
+<!--                            <input type="text" class="form-control" th:field="*{customerType}" required>-->
+                            <select  th:field="*{customerType}" >
+                                <option th:each="customerType: ${customerTypes}" th:text="${customerType.customerTypeName}" th:value="${customerType.customerTypeId}"></option>
+                            </select>
+                        </div>
+                        <div>
+                            <lable>Ngày sinh: </lable>
+                            <input type="date" class="form-control" th:field="*{customerBirthday}" >
+                        </div>
+<!--                        <div>-->
+<!--                            <lable>Giới tính: </lable>-->
+<!--&lt;!&ndash;                            <select name="" id="">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <option value="1"  th:field="*{customerGender}">Nam</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <option value="0"  th:field="*{customerGender}">Nữ</option>&ndash;&gt;-->
+<!--                            <input type="text" class="form-control" th:field="*{customerGender}" >-->
+<!--&lt;!&ndash;                            </select>&ndash;&gt;-->
+<!--                        </div>-->
+                        <div>
+                            <lable>Giới tính: </lable>
+                            <select th:field="*{customerGender}">
+                                <option value="1">Nam</option>
+                                <option value="0">Nữ</option>
+                            </select>
+                        </div>
+                        <div>
+                            <lable>CCCD: </lable>
+                            <input type="text" class="form-control" th:field="*{customerIdCard}" >
+                        </div>
+                        <div>
+                            <lable>SĐT: </lable>
+                            <input type="text" class="form-control" th:field="*{customerPhone}" >
+                        </div>
+                        <div>
+                            <lable>Email: </lable>
+                            <input type="text" class="form-control" th:field="*{customerEmail}" >
+                        </div>
+                        <div>
+                            <lable>Địa chỉ: </lable>
+                            <input type="text" class="form-control" th:field="*{customerAddress}" >
+                        </div>
+<!--                        <div>-->
+<!--                            <lable>Thể loại: </lable>-->
+<!--                            <select  th:field="*{category}">-->
+<!--                                <option th:each="category: ${categories}" th:text="${category.name}" th:value="${category.id}"></option>-->
+<!--                            </select>-->
+<!--                            &lt;!&ndash;                        <input type="text" class="form-control" th:field="*{category}" >&ndash;&gt;-->
+<!--                        </div>-->
+                        <div>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--    <table>-->
+        <!--        <tr>-->
+        <!--            <td>Tên blog:</td>-->
+        <!--            <td><input type="text" th:field="*{name}"/></td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <td>Nội dung:</td>-->
+        <!--            <td><input type="text" th:field="*{content}"/></td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <td>Tác giả:</td>-->
+        <!--            <td><input type="text" th:field="*{author}"/></td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <td></td>-->
+        <!--            <td><input type="submit" value="Create customer"></td>-->
+        <!--        </tr>-->
+        <!--    </table>-->
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Customer</title>
+    <link rel="stylesheet" href="/assert/bootstrap413/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assert/datatables/css/dataTables.bootstrap4.min.css">
+</head>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<body>
+<div class="container-fluid">
+    <!--        <div class="row bg-white p-lg-12">-->
+    <div class="col-log-12">
+        <h3 class="text-center">Sửa thông tin khách hàng</h3>
+        <form method="post" th:object="${customer}" th:action="@{/edit}">
+            <div>
+                <lable>Mã khách hàng:</lable>
+                <input type="text" class="form-control" name="customerId" th:field="*{customerId}" readonly>
+            </div>
+            <div>
+                <lable>Tên khách hàng:</lable>
+                <input type="text" class="form-control" name="customerName" th:field="*{customerName}">
+            </div>
+            <div>
+                <lable>Loại khách hàng: </lable>
+                <!--                            <input type="text" class="form-control" th:field="*{customerType}" required>-->
+                <select  th:field="*{customerType}" >
+                    <option th:each="customerType: ${customerTypes}" th:text="${customerType.customerTypeName}" th:value="${customerType.customerTypeId}"></option>
+                </select>
+            </div>
+            <div>
+                <lable>Ngày sinh:</lable>
+                <input type="date" class="form-control" name="customerBirthday" th:field="*{customerBirthday}">
+            </div>
+            <div>
+                <lable>Giới tính: </lable>
+                <select th:field="*{customerGender}">
+                    <option value="1">Nam</option>
+                    <option value="0">Nữ</option>
+                </select>
+<!--                <input type="text" class="form-control"  name="customerGender" th:field="*{customerGender}">-->
+<!--                <td th:text="${customer.customerGender?'Nam': 'Nữ' }"></td>-->
+            </div>
+            <div>
+                <lable>CCCD: </lable>
+                <input type="text" class="form-control" name="customerIdCard" th:field="*{customerIdCard}">
+            </div>
+            <div>
+                <lable>SĐT: </lable>
+                <input type="text" class="form-control"  name="customerPhone" th:field="*{customerPhone}">
+            </div>
+            <div>
+                <lable>Email: </lable>
+                <input type="text" class="form-control" name="customerEmail" th:field="*{customerEmail}">
+            </div>
+            <div>
+                <lable>Địa chỉ: </lable>
+                <input type="text" class="form-control" name="customerAddress" th:field="*{customerAddress}">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+                <button type="button" class="btn btn-success">
+                    <a href="/customer" class="text-white">Quay Lại</a>
+                </button>
+            </div>
+        </form>
+    </div>
+    <!--        </div>-->
+</div>
+
+</body>
+</html>
