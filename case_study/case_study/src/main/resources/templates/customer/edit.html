@@ -5,65 +5,72 @@
     <title>Edit Customer</title>
     <link rel="stylesheet" href="/assert/bootstrap413/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assert/datatables/css/dataTables.bootstrap4.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <th:block th:if="${message}">
     <p th:text="${message}"></p>
 </th:block>
 <body>
-<div class="container-fluid">
+<div class="container">
     <!--        <div class="row bg-white p-lg-12">-->
     <div class="col-log-12">
         <h3 class="text-center">Sửa thông tin khách hàng</h3>
-        <form method="post" th:object="${customer}" th:action="@{/edit}">
-            <div>
+        <form method="post" th:object="${customer}" th:action="@{/edit_customer}">
+            <div class="mb-2">
                 <lable>Mã khách hàng:</lable>
                 <input type="text" class="form-control" name="customerId" th:field="*{customerId}" readonly>
             </div>
-            <div>
+            <div class="mb-2">
                 <lable>Tên khách hàng:</lable>
                 <input type="text" class="form-control" name="customerName" th:field="*{customerName}">
             </div>
-            <div>
-                <lable>Loại khách hàng: </lable>
+            <div class="mb-2">
+                <lable>Loại khách hàng:</lable>
                 <!--                            <input type="text" class="form-control" th:field="*{customerType}" required>-->
-                <select  th:field="*{customerType}" >
-                    <option th:each="customerType: ${customerTypes}" th:text="${customerType.customerTypeName}" th:value="${customerType.customerTypeId}"></option>
+                <select th:field="*{customerType}" class="form-control form-select">
+                    <option th:each="customerType: ${customerTypes}" th:text="${customerType.customerTypeName}"
+                            th:value="${customerType.customerTypeId}"></option>
                 </select>
             </div>
-            <div>
+            <div class="mb-2">
                 <lable>Ngày sinh:</lable>
                 <input type="date" class="form-control" name="customerBirthday" th:field="*{customerBirthday}">
             </div>
-            <div>
-                <lable>Giới tính: </lable>
-                <select th:field="*{customerGender}">
+            <div class="mb-2">
+                <lable>Giới tính:</lable>
+                <br>
+                <select th:field="*{customerGender}" class="form-select" id="inputGroupSelect04"
+                        aria-label="Example select with button addon">
                     <option value="1">Nam</option>
                     <option value="0">Nữ</option>
                 </select>
-<!--                <input type="text" class="form-control"  name="customerGender" th:field="*{customerGender}">-->
-<!--                <td th:text="${customer.customerGender?'Nam': 'Nữ' }"></td>-->
+                <!--                <input type="text" class="form-control"  name="customerGender" th:field="*{customerGender}">-->
+                <!--                <td th:text="${customer.customerGender?'Nam': 'Nữ' }"></td>-->
             </div>
-            <div>
-                <lable>CCCD: </lable>
+            <div class="mb-2">
+                <lable>CCCD:</lable>
                 <input type="text" class="form-control" name="customerIdCard" th:field="*{customerIdCard}">
             </div>
-            <div>
-                <lable>SĐT: </lable>
-                <input type="text" class="form-control"  name="customerPhone" th:field="*{customerPhone}">
+            <div class="mb-2">
+                <lable>SĐT:</lable>
+                <input type="text" class="form-control" name="customerPhone" th:field="*{customerPhone}">
             </div>
-            <div>
-                <lable>Email: </lable>
+            <div class="mb-2">
+                <lable>Email:</lable>
                 <input type="text" class="form-control" name="customerEmail" th:field="*{customerEmail}">
             </div>
-            <div>
-                <lable>Địa chỉ: </lable>
+            <div class="mb-2">
+                <lable>Địa chỉ:</lable>
                 <input type="text" class="form-control" name="customerAddress" th:field="*{customerAddress}">
             </div>
-            <div>
+            <div class="mb-2">
                 <button type="submit" class="btn btn-primary">Lưu</button>
-                <button type="button" class="btn btn-success">
-                    <a href="/customer" class="text-white">Quay Lại</a>
-                </button>
+                <a href="/customer" class="text-white">
+                    <button type="button" class="btn btn-success">
+                        Quay Lại
+                    </button>
+                </a>
             </div>
         </form>
     </div>

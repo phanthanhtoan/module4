@@ -1,4 +1,4 @@
-package com.case_study.controller.customer;
+package com.case_study.controller;
 
 import com.case_study.model.Customer;
 import com.case_study.model.CustomerType;
@@ -27,7 +27,7 @@ public class CustomerController {
     private CustomerTypeService customerTypeService;
 
     @GetMapping("/customer")
-    public ModelAndView getBlogList(@PageableDefault(size = 5) Pageable pageable,@RequestParam("search") Optional<String> search, Model model){
+    public ModelAndView getCustomerList(@PageableDefault(size = 5) Pageable pageable,@RequestParam("search") Optional<String> search, Model model){
         Page<Customer> customers;
         if (search.isPresent()){
             customers = customerService.findByName(search.get(), pageable);
@@ -72,12 +72,16 @@ public class CustomerController {
         }
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/edit_customer")
     public String updateCustomer(@ModelAttribute ("customer") Customer customer, RedirectAttributes redirectAttributes) {
         customerService.saveCustomer(customer);
-//        ModelAndView modelAndView = new ModelAndView("/edit");
-//        modelAndView.addObject("blog", blog);
         redirectAttributes.addFlashAttribute("message", "Customer updated successfully");
+        return "redirect:/customer";
+    }
+
+    @GetMapping("/delete-customer/{id}")
+    public String deleteCustomer(@PathVariable Long id){
+        customerService.deleteCustomer(id);
         return "redirect:/customer";
     }
 
@@ -94,24 +98,17 @@ public class CustomerController {
 //        }
 //    }
 
-    @RequestMapping("/delete-customer/{id}")
-    public String deleteCustomer(@PathVariable Long id, @ModelAttribute("customer") Customer customer){
-    customerService.findCustomerById(id);
-    customerService.deleteCustomer(customer.getCustomerId());
-
-        if (customer!= null){
-            ModelAndView modelAndView = new ModelAndView("/customer/delete");
-            modelAndView.addObject("customer", customer);
-            return "redirect:/customer";
-        }else {
-            ModelAndView modelAndView = new ModelAndView("/error_404");
-            return "redirect:/customer";
-        }
-    }
-
 //    @PostMapping("/delete-customer")
 //    public String deleteCustomer(@ModelAttribute("customer") Customer customer) {
 //        customerService.deleteCustomer(customer.getCustomerId());
 //        return "redirect:/customer";
 //    }
+
+    @GetMapping("/view-customer/{id}")
+    public String showDetailForm(@PathVariable Long id, Model model){
+        List<CustomerType> customerTypes=   customerTypeService.findAll();
+        model.addAttribute("customerTypes", customerTypes);
+        model.addAttribute("customer", customerService.findCustomerById(id));
+        return "/customer/view";
+    }
 }

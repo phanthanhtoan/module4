@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>List Blog</title>
+    <title>List Emloyee</title>
     <link rel="stylesheet" href="assert/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assert/bootstrap413/css/bootstrap.min.css">
     <link rel="stylesheet" href="assert/datatables/css/dataTables.bootstrap4.min.css">
@@ -19,17 +19,17 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<h2>List Blog</h2>
+<h2>List Emloyee</h2>
 
 <div class="container-fluid">
     <div class="col-lg-12">
         <button class="btn btn-info align-middle" onclick="window.location.href='/'">
             <img src="/img/home.svg" style="height: 25px; width: 25px"/>
         </button>
-        <button class="btn btn-info align-middle" onclick="window.location.href='/customer'">
+        <button class="btn btn-info align-middle" onclick="window.location.href='/employee'">
             <img src="/img/list.svg" style="height: 25px; width: 25px"/>
         </button>
-        <button class="btn btn-info align-middle" onclick="window.location.href='/create-customer'">
+        <button class="btn btn-info align-middle" onclick="window.location.href='/create-employee'">
             <img src="/img/create.svg" style="height: 25px; width: 25px"/>
         </button>
 
@@ -44,48 +44,49 @@
             <thead>
             <tr>
                 <th scope="col">STT</th>
-                <th scope="col">Mã KH</th>
-                <th scope="col">Tên KH</th>
+                <th scope="col">Mã NV</th>
+                <th scope="col">Tên NV</th>
                 <th scope="col">Ngày sinh</th>
-                <th scope="col">Giới tính</th>
                 <th scope="col">CCCD</th>
                 <th scope="col">SĐT</th>
                 <th scope="col">Email</th>
                 <th scope="col">Địa chỉ</th>
-                <th scope="col">Loại KH</th>
+                <th scope="col">Lương</th>
+                <th scope="col">Phân công</th>
+                <th scope="col">Trình độ</th>
+                <th scope="col">Chức vụ</th>
+                <th scope="col">Tài khoản</th>
                 <th scope="col">Detail</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="customer, iTer: ${customers}">
+            <tr th:each="employee, iTer: ${employees}">
                 <td th:text="${iTer.count}"></td>
-                <td th:text="${customer.customerId}"></td>
-                <td th:text="${customer.customerName}"></td>
-                <td th:text="${#dates.format(customer.customerBirthday, 'yyyy-MM-dd')}"></td>
-                <!--                <td  th:if="${customer.customerGender}" th:text="Nam"></td>-->
-                <!--                <td  th:if="${!customer.customerGender}" th:text="Nữ"></td>-->
-                <td th:text="${customer.customerGender?'Nam': 'Nữ' }"></td>
-                <!--                <td th:text="${customer.customerGender==0}? 'Nữ'"></td>-->
-                <!--                <td>-->
-                <!--                    <span th:if="${customer.customerGender == '1'}">Nam</span>-->
-                <!--                    <span th:if="${customer.customerGender == '0'}">Nữ</span>-->
-                <!--                </td>-->
-                <td th:text="${customer.customerIdCard}"></td>
-                <td th:text="${customer.customerPhone}"></td>
-                <td th:text="${customer.customerEmail}"></td>
-                <td th:text="${customer.customerAddress}"></td>
-                <td th:text="${customer.customerType.customerTypeName}"></td>
+                <td th:text="${employee.employeeId}"></td>
+                <td th:text="${employee.employeeName}"></td>
+                <td th:text="${#dates.format(employee.employeeBirthday, 'yyyy-MM-dd')}"></td>
+                <td th:text="${employee.employeeIdCard}"></td>
+                <td th:text="${employee.employeePhone}"></td>
+                <td th:text="${employee.employeeEmail}"></td>
+                <td th:text="${employee.employeeAddress}"></td>
+                <td th:text="${employee.employeeSalary}"></td>
+                <td th:text="${employee.division.divisionName}"></td>
+                <td th:text="${employee.educationDegree.educationDegreeName}"></td>
+                <td th:text="${employee.position.positionName}"></td>
+                <td th:text="${employee.user.username}"></td>
+<!--                <td th:text="${customer.customerType.customerTypeName}"></td>-->
                 <td>
-                    <a style="color: black"
-                       th:href="@{/view-customer/__${customer.customerId}__}">
-                        <button class="btn btn-primary">Detail</button>
-                    </a>
+<!--                    <a style="color: black"-->
+<!--                       th:href="@{/view-customer/__${customer.customerId}__}">-->
+<!--                        <button class="btn btn-primary">Detail</button>-->
+<!--                    </a>-->
+                    Detail
                 </td>
                 <td>
                     <a style="color: black"
-                       th:href="@{/edit-customer/__${customer.customerId}__}">
+                       th:href="@{/edit-employee/__${employee.employeeId}__}">
                         <button class="btn btn-info">Edit</button>
                     </a>
                 </td>
@@ -95,7 +96,7 @@
                     <!--                                               th:href="@{/delete-customer/__${customer.customerId}__}">Delete</a>-->
                     <!--                                        </button>-->
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete"
-                            th:onclick="'setValueForm(\'' + ${customer.customerId} + '\');'">
+                            th:onclick="'setValueForm(\'' + ${employee.employeeId} + '\');'">
                         Delete
                     </button>
                 </td>
@@ -127,15 +128,19 @@
 
 
 <div class="text-center">
-    <a th:href="@{'/customer'(page=${customers.number - 1}, search=${search})}" th:if="${customers.hasPrevious()}"> <img src="/img/previous.svg" style="height: 25px; width: 25px"/></a>
-    <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>
-    <a th:href="@{'/customer'(page=${customers.number + 1}, search=${search})}" th:if="${customers.hasNext()}"><img src="/img/next.svg" style="height: 25px; width: 25px"/</a>
+    <a th:href="@{'/customer'(page=${employees.number - 1}, search=${search})}" th:if="${employees.hasPrevious()}">
+        <img src="/img/previous.svg" style="height: 25px; width: 25px"/>
+    </a>
+    <span th:text="${employees.number + 1}"></span>/<span th:text="${employees.totalPages}"></span>
+    <a th:href="@{'/customer'(page=${employees.number + 1}, search=${search})}" th:if="${employees.hasNext()}">
+        <img src="/img/next.svg" style="height: 25px; width: 25px"/>
+    </a>
 </div>
 
 <script>
     function setValueForm(id) {
         let id1 = id;
-        document.getElementById("save").href = "/delete-customer/" + id1;
+        document.getElementById("save").href = "/delete-employee/" + id1;
     }
 </script>
 

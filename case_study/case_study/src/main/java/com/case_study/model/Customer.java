@@ -3,7 +3,10 @@ package com.case_study.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
 
@@ -18,9 +21,9 @@ public class Customer {
     private Boolean customerGender;
     private String customerIdCard;
     private String customerPhone;
+    @Email
     private String customerEmail;
     private String customerAddress;
-
     @ManyToOne(targetEntity = CustomerType.class)
     private CustomerType customerType;
     @OneToMany(mappedBy = "contractId")

@@ -21,7 +21,7 @@ public class Contract {
     @ManyToOne(targetEntity = Employee.class)
     private Employee employee;
 
-    @ManyToOne(targetEntity = Customer.class,  cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Customer.class)
     private Customer customer;
 
     @ManyToOne(targetEntity = Service.class)

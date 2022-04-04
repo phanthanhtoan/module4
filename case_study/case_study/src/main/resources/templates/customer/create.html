@@ -5,6 +5,7 @@
     <title>Create Customer</title>
     <link rel="stylesheet" href="/assert/bootstrap413/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assert/datatables/css/dataTables.bootstrap4 .min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
 <h1>Create Customer</h1>
@@ -12,27 +13,27 @@
     <p th:text="${message}"></p>
 </th:block>
 <form th:action="@{/create-customer}" th:object="${customer}" method="post">
-    <div class="container-fluid">
+    <div class="container">
         <button type="button" class="btn btn-success">
-            <a href="/" style="color: black">Customer list</a>
+            <a href="/customer" style="color: black">Customer list</a>
         </button>
         <div class="row bg-white p-lg-5">
             <div class="col-lg-12">
                 <h3 class="text-center">Thêm Khách hàng: </h3>
                 <form method="post">
-                    <div class="form-group">
-                        <div>
+                    <div >
+                        <div class="mb-2">
                             <lable>Tên khách hàng: </lable>
                             <input type="text" class="form-control" th:field="*{customerName}" required>
                         </div>
-                        <div>
+                        <div class="mb-2">
                             <lable>Loại khách hàng: </lable>
 <!--                            <input type="text" class="form-control" th:field="*{customerType}" required>-->
-                            <select  th:field="*{customerType}" >
+                            <select  th:field="*{customerType}" class="form-control form-select" >
                                 <option th:each="customerType: ${customerTypes}" th:text="${customerType.customerTypeName}" th:value="${customerType.customerTypeId}"></option>
                             </select>
                         </div>
-                        <div>
+                        <div class="mb-2">
                             <lable>Ngày sinh: </lable>
                             <input type="date" class="form-control" th:field="*{customerBirthday}" >
                         </div>
@@ -44,26 +45,26 @@
 <!--                            <input type="text" class="form-control" th:field="*{customerGender}" >-->
 <!--&lt;!&ndash;                            </select>&ndash;&gt;-->
 <!--                        </div>-->
-                        <div>
+                        <div class="mb-2">
                             <lable>Giới tính: </lable>
-                            <select th:field="*{customerGender}">
+                            <select th:field="*{customerGender}" class="form-control form-select">
                                 <option value="1">Nam</option>
                                 <option value="0">Nữ</option>
                             </select>
                         </div>
-                        <div>
+                        <div class="mb-2">
                             <lable>CCCD: </lable>
                             <input type="text" class="form-control" th:field="*{customerIdCard}" >
                         </div>
-                        <div>
+                        <div class="mb-2">
                             <lable>SĐT: </lable>
                             <input type="text" class="form-control" th:field="*{customerPhone}" >
                         </div>
-                        <div>
+                        <div class="mb-2">
                             <lable>Email: </lable>
                             <input type="text" class="form-control" th:field="*{customerEmail}" >
                         </div>
-                        <div>
+                        <div class="mb-2">
                             <lable>Địa chỉ: </lable>
                             <input type="text" class="form-control" th:field="*{customerAddress}" >
                         </div>
@@ -74,7 +75,7 @@
 <!--                            </select>-->
 <!--                            &lt;!&ndash;                        <input type="text" class="form-control" th:field="*{category}" >&ndash;&gt;-->
 <!--                        </div>-->
-                        <div>
+                        <div class="mb-2">
                             <button type="submit" class="btn btn-primary">Create</button>
                         </div>
                     </div>

@@ -3,6 +3,9 @@ package com.case_study.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.Set;
 
@@ -17,6 +20,7 @@ public class Employee {
     private String employeeIdCard;
     private Double employeeSalary;
     private Long employeePhone;
+    @Email
     private String employeeEmail;
     private String employeeAddress;
 
