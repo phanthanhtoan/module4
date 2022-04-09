@@ -21,13 +21,13 @@ public class Contract {
     @ManyToOne(targetEntity = Employee.class)
     private Employee employee;
 
-    @ManyToOne(targetEntity = Customer.class)
+    @ManyToOne(targetEntity = Customer.class, cascade = CascadeType.ALL)
     private Customer customer;
 
     @ManyToOne(targetEntity = Service.class)
     private Service service;
 
-    @OneToMany(mappedBy = "contractDetailId")
+    @OneToMany(mappedBy = "contractDetailId", cascade = CascadeType.ALL)
     private Set<ContractDetail> contracts;
 
     public Contract() {

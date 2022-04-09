@@ -9,7 +9,7 @@ public class ContractDetail {
     private Long contractDetailId;
     private int quantity;
 
-    @ManyToOne(targetEntity = Contract.class)
+    @ManyToOne(targetEntity = Contract.class, cascade = CascadeType.ALL)
     private Contract contract;
 
     @ManyToOne(targetEntity = AttachService.class)

@@ -26,7 +26,7 @@ public class Customer {
     private String customerAddress;
     @ManyToOne(targetEntity = CustomerType.class)
     private CustomerType customerType;
-    @OneToMany(mappedBy = "contractId")
+    @OneToMany(mappedBy = "contractId", cascade = CascadeType.ALL)
     private Set<Contract> contract;
 
     public Customer(Long customerId, String customerName, Date customerBirthday, Boolean customerGender, String customerIdCard, String customerPhone, String customerEmail, String customerAddress, CustomerType customerType, Set<Contract> contract) {

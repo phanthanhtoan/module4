@@ -1,19 +1,112 @@
 package com.case_study.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("member").password("{noop}12345").roles("MEMBER")
+//                .and()
+//                .withUser("admin").password("{noop}12345").roles("ADMIN");
+//    }
+//
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests().antMatchers("/").permitAll()
+//                .and()
+//                .authorizeRequests().antMatchers("/user**", "/customer", "/employee").hasRole("MEMBER")
+//                .and()
+//                .authorizeRequests().antMatchers("/admin**").hasRole("ADMIN")
+//                .and()
+//                .formLogin()
+//                .and()
+//                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+//    }
+
+
+
+
+////    @Override
+////    protected void configure(HttpSecurity http) throws Exception {
+////
+////        http.authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated().and().csrf().disable();
+////    }
+//
+// login và phân quyền
+    @Qualifier("userServiceImpl")
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Bean
+    public static PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    public void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                //Cấu hình cho các đuòng dẫn không cần xác thực(đăng nhập)
+                .antMatchers("/", "/login", "/register").permitAll()
+                //Cấu hình cho các đường dẫn đăng nhập bằng Role là Member, Admin
+                .antMatchers("/member/**").hasAnyRole("MEMBER")
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                //cấu hình cho đường dẫn admin, chỉ có Role admin mới vào được
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+                .and()
+                //formlogin
+                .formLogin()
+                //Đường dẫn trả về trang authentication
+                .loginPage("/login")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                //Nếu authentication thành công
+                .defaultSuccessUrl("/")
+                //Nếu authentication thất bại
+                .failureUrl("/login?error")
+                //Nếu authentication thành công nhưng vào trang không đúng role
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/403")
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout")
+//                .logoutSuccessUrl("/").permitAll()
+//                .invalidateHttpSession(true)
+//                .deleteCookies("JSESSIONID")
+        ;
 
-        http.authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated().and().csrf().disable();
+        http.authorizeRequests().and() //
+                .rememberMe().tokenRepository(this.persistentTokenRepository()) //
+                .tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
     }
-    
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        InMemoryTokenRepositoryImpl memory = new InMemoryTokenRepositoryImpl();
+        return memory;
+    }
+
 }

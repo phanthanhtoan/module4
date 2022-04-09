@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/header::header}">
     <meta charset="UTF-8">
     <title>Delete Customer</title>
 </head>
 <body>
-<h1>Delete Customer</h1>
-<h2>Are you sure?</h2>
+<div th:replace="~{layout/navbar::navbar}"></div>
 <p>
     <a href="/customer">Customer list</a>
 </p>

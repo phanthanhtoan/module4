@@ -19,14 +19,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
+
 @Controller
+@RequestMapping("/member/customer")
 public class CustomerController {
+
     @Autowired
     private CustomerService customerService;
+
     @Autowired
     private CustomerTypeService customerTypeService;
 
-    @GetMapping("/customer")
+//    @GetMapping("/customer")
+    @GetMapping("")
     public ModelAndView getCustomerList(@PageableDefault(size = 5) Pageable pageable,@RequestParam("search") Optional<String> search, Model model){
         Page<Customer> customers;
         if (search.isPresent()){
@@ -76,13 +81,13 @@ public class CustomerController {
     public String updateCustomer(@ModelAttribute ("customer") Customer customer, RedirectAttributes redirectAttributes) {
         customerService.saveCustomer(customer);
         redirectAttributes.addFlashAttribute("message", "Customer updated successfully");
-        return "redirect:/customer";
+        return "redirect:/member/customer/";
     }
 
     @GetMapping("/delete-customer/{id}")
     public String deleteCustomer(@PathVariable Long id){
         customerService.deleteCustomer(id);
-        return "redirect:/customer";
+        return "redirect:/member/customer";
     }
 
 //    @GetMapping("/delete-customer/{id}")

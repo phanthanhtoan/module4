@@ -8,14 +8,20 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roleId;
+
     private String roleName;
 
-    @ManyToMany
-    @JoinTable(name = "user_role", joinColumns =@JoinColumn(name = "roleId"), inverseJoinColumns = @JoinColumn
-            (name = "username"))
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinTable(name = "user_role",
+//            joinColumns =@JoinColumn(name = "roleId"),
+//            inverseJoinColumns = @JoinColumn(name = "username"))
+
     private Set<User> user;
 
     public Role() {
+    }
+    public Role(String roleName) {
+        this.roleName=roleName;
     }
 
     public Role(Long roleId, String roleName, Set<User> user) {

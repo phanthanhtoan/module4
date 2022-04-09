@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/member/employee")
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
@@ -29,7 +30,7 @@ public class EmployeeController {
     @Autowired
     private PositionRepository positionRepository;
 
-    @GetMapping("/employee")
+    @GetMapping("")
     public ModelAndView getCustomerList(@PageableDefault(size = 5) Pageable pageable, @RequestParam("search") Optional<String> search, Model model){
         Page<Employee> employees;
         if (search.isPresent()){
